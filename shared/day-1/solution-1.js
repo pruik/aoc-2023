@@ -1,4 +1,4 @@
-import { data, testData, testResult } from "./input.js"
+import { data } from "./input.js"
 
 
 const splittedData = data.split("\n");
