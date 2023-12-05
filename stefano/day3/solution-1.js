@@ -68,7 +68,7 @@ function extractNumbers(line) {
     numberStack = '';
   });
 
-  // last number
+  // last number 💩
   if (numberStack.length > 0) {
     numbers.push({
       value:  parseInt(numberStack),
