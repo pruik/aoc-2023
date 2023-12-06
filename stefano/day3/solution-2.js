@@ -57,46 +57,67 @@ function extractStars(line) {
   return stars
 }
 
-function extractNumbers(line) {
-  let numberStack = '';
-  let startIndex;
+// function extractNumbers(line) {
+//   let numberStack = '';
+//   let startIndex;
 
-  const numbers = [];
-  const lineChars = line.split("")
-  lineChars.forEach((char, index) => {
-    if (isDigit(char)) {
-      if(numberStack.length === 0){
-        startIndex = index;
-      }
-      numberStack += char;
-      return;
-    }
+//   const numbers = [];
+//   const lineChars = line.split("")
+//   lineChars.forEach((char, index) => {
+//     if (isDigit(char)) {
+//       if(numberStack.length === 0){
+//         startIndex = index;
+//       }
+//       numberStack += char;
+//       return;
+//     }
 
-    if (numberStack.length <= 0) {
-      return;
-    }
+//     if (numberStack.length <= 0) {
+//       return;
+//     }
   
-    numbers.push({
-      value:  parseInt(numberStack),
-      endIndex: index - 1,
-      startIndex,
-    });
+//     numbers.push({
+//       value:  parseInt(numberStack),
+//       endIndex: index - 1,
+//       startIndex,
+//     });
 
-    numberStack = '';
-  });
+//     numberStack = '';
+//   });
 
-  // last number 💩
-  if (numberStack.length > 0) {
-    numbers.push({
-      value:  parseInt(numberStack),
-      endIndex: lineChars.length - 1,
+//   // last number 💩
+//   if (numberStack.length > 0) {
+//     numbers.push({
+//       value:  parseInt(numberStack),
+//       endIndex: lineChars.length - 1,
+//       startIndex,
+//     });
+//   }
+
+//   return numbers
+// }
+
+function extractNumbers(line){
+  const regex1 = /\d+/g;
+  let array1;
+
+  const result = [];
+  while ((array1 = regex1.exec(line)) !== null) {
+    const startIndex = array1.index;
+    const endIndex = regex1.lastIndex - 1;
+    const value = array1[0];
+
+    result.push({
+      value: parseInt(value),
       startIndex,
+      endIndex,
     });
   }
-
-  return numbers
+  return result;
 }
 
 function isDigit(char) {
   return char >= '0' && char <= '9';
 }
+
+
